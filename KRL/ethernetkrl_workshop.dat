@@ -1,0 +1,21 @@
+&ACCESS RVP
+&REL 3
+&PARAM SensorITMASK = *
+&PARAM TEMPLATE = C:\KRC\Roboter\Template\vorgabe
+&PARAM DISKPATH = KRC:\R1\Program
+DEFDAT ethernetkrl_workshop PUBLIC
+;FOLD EXTERNAL DECLARATIONS;%{PE}%MKUKATPBASIS,%CEXT,%VCOMMON,%P
+;FOLD BASISTECH EXT;%{PE}%MKUKATPBASIS,%CEXT,%VEXT,%P
+EXT  BAS (BAS_COMMAND  :IN,REAL  :IN )
+
+
+;var for fabrication process
+DECL BOOL working = TRUE
+
+DECL CHAR action[1]
+action[1] = 0
+DECL FRAME current_position = {X 0, Y 0, Z 0, A 0, B 0, C 0}
+DECL FRAME relFrame
+DECL REAL step_size = 30
+
+ENDDAT

@@ -1,0 +1,32 @@
+<ETHERNETKRL>
+	<CONFIGURATION>
+		<EXTERNAL>
+			<TYPE>Client</TYPE> 
+		</EXTERNAL>
+		<INTERNAL>
+			<IP>192.168.2.2</IP>
+			<PORT>54600</PORT>
+			<BUFFERING Mode="FIFO" Limit="500"/>
+			<ALIVE Set_Flag="1"/>
+		</INTERNAL>
+	</CONFIGURATION>
+	<RECEIVE>
+		<XML>
+         <ELEMENT Tag="Sensor/Action" Type="STRING" />
+         <ELEMENT Tag="Sensor/WaitForResponse" Type="BOOL" />
+         <ELEMENT Tag="Sensor" Set_Flag="4" />
+		</XML>
+	</RECEIVE>
+	<SEND>
+		<XML>
+			<ELEMENT Tag="Robot/DataRecived" Type="BOOL"/>
+         	<ELEMENT Tag="Robot/TaskDone" Type="BOOL"/>
+            <ELEMENT Tag="Robot/Data/ActPos/@X" />
+            <ELEMENT Tag="Robot/Data/ActPos/@Y" />
+            <ELEMENT Tag="Robot/Data/ActPos/@Z" />
+            <ELEMENT Tag="Robot/Data/ActPos/@A" />
+            <ELEMENT Tag="Robot/Data/ActPos/@B" />
+            <ELEMENT Tag="Robot/Data/ActPos/@C" />
+		</XML>
+	</SEND>
+</ETHERNETKRL>

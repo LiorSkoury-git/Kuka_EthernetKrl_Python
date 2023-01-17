@@ -1,4 +1,7 @@
-python = 3.9
 
+#for kryboard control
 pynput
 
+#for grasshopper hops connection
+ghhops-server
+flask

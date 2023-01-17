@@ -95,12 +95,21 @@ class NodeElement:
             
     def printXML(self):
         print(ET.tostring(self.getNode()))
+    
+    def stringDict(self):
+            
+        textFrame = self.Name+' '
+        for key,item in self.Data.items():
+            textFrame += '{}="{}" '.format(key,float(item))
+        textFrame = textFrame[:-1]
+        return textFrame
 
 #construct a XML message with an action to be send by the eki_client
-def constructXML(var):
-
-    root = RootElement("Sensor")
-    root.AddNode(NodeElement(var, 'Action', "text").getNode())
+def constructXMLTEXT(var:dict,type:str="text",root=None):
+    if root == None:
+        root = RootElement("Sensor")
+    for k,v in var.items():
+        root.AddNode(NodeElement(v,k, type).getNode())
     return root
 
 #construct a XML message indicating for the client to wait for the execution of the sent task
@@ -113,7 +122,7 @@ def constructWaitXML():
 # testing the connection
 if __name__ == "__main__":
 
-    t = constructXML("X")
+    t = constructXMLTEXT("X")
     print (t.printXML())
 
     ip = '192.168.2.1'

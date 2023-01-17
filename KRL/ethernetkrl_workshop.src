@@ -6,8 +6,21 @@
 DEF ethernetkrl_workshop( )
 ;FOLD Declaration
   DECL EKI_STATUS RET
+  DECL E6POS firstMove
 ;ENDFOLD (Declaration)
 
+
+;FOLD INIT VALUES
+    BAS (#INITMOV,0 )
+    firstMove = $POS_ACT
+    working = TRUE
+    action = -1
+    key[1] = 0
+    current_position = {X 0, Y 0, Z 0, A 0, B 0, C 0}
+    temp_frame = {X 0, Y 0, Z 0, A 0, B 0, C 0}
+;ENDFOLD INIT VALUES
+
+PTP firstMove
 
 HALT
 ;initiate and open server
@@ -32,40 +45,53 @@ WHILE working
     RET= EKI_SetBool("ITECH", "Robot/DataRecived", TRUE)
     RET=EKI_Send("ITECH","Robot/DataRecived")
 
-    RET = EKI_GetString("ITECH","Sensor/Action",action[])
+    RET = EKI_GetInt("ITECH","Sensor/Action",action)
 
     ;FOLD ACTIONS
-        IF (action[1] == "A") THEN
-            relFrame.Y = -step_size
-            PTP_REL relFrame
-        ENDIF
-        IF (action[1] == "D") THEN
-            relFrame.Y = step_size
-            PTP_REL relFrame
-        ENDIF
-        IF (action[1] == "X") THEN
-            relFrame.X = -step_size
-            PTP_REL relFrame
-        ENDIF
-        IF (action[1] == "W") THEN
-            relFrame.X = step_size
-            PTP_REL relFrame
-        ENDIF
-        IF (action[1] == "J") THEN
-            relFrame.Z = -step_size
-            PTP_REL relFrame
-        ENDIF
-        IF (action[1] == "U") THEN
-            relFrame.Z = step_size
-            PTP_REL relFrame
-        ENDIF
-        IF (action[1] == "Q") THEN
-            working = FALSE
-        ENDIF
+
+    IF (action==0) THEN
+        RET = EKI_GetString("ITECH","Sensor/Key",key[])
+        ;FOLD KEY OPTIONS
+            IF (key[1] == "A") THEN
+                relFrame.Y = -step_size
+                PTP_REL relFrame
+            ENDIF
+            IF (key[1] == "D") THEN
+                relFrame.Y = step_size
+                PTP_REL relFrame
+            ENDIF
+            IF (key[1] == "X") THEN
+                relFrame.X = -step_size
+                PTP_REL relFrame
+            ENDIF
+            IF (key[1] == "W") THEN
+                relFrame.X = step_size
+                PTP_REL relFrame
+            ENDIF
+            IF (key[1] == "J") THEN
+                relFrame.Z = -step_size
+                PTP_REL relFrame
+            ENDIF
+            IF (key[1] == "U") THEN
+                relFrame.Z = step_size
+                PTP_REL relFrame
+            ENDIF
+            IF (key[1] == "Q") THEN
+                working = FALSE
+            ENDIF
+        ;ENDFOLD KEY OPTIONS
+    ENDIF
+
+
+    IF (action == 1) THEN
+        RET = EKI_GetFrame("ITECH","Sensor/Frame",temp_frame)
+        PTP temp_frame
+    ENDIF
     ;ENDFOLD ACTIONS
 
     wait for $FLAG[4]
     $FLAG[4]=FALSE
+    action = -1
     RET= EKI_SetBool("ITECH", "Robot/TaskDone", TRUE)
     current_position = $POS_ACT
     RET= EKI_SetFrame("ITECH","Robot/Data/ActPos",current_position)

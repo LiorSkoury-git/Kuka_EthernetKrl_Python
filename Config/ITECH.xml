@@ -12,7 +12,9 @@
 	</CONFIGURATION>
 	<RECEIVE>
 		<XML>
-         <ELEMENT Tag="Sensor/Action" Type="STRING" />
+		 <ELEMENT Tag="Sensor/Action" Type="INT" />
+         <ELEMENT Tag="Sensor/Key" Type="STRING" />
+		 <ELEMENT Tag="Sensor/Frame" Type="FRAME" />
          <ELEMENT Tag="Sensor/WaitForResponse" Type="BOOL" />
          <ELEMENT Tag="Sensor" Set_Flag="4" />
 		</XML>

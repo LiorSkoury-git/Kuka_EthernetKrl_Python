@@ -12,9 +12,11 @@ EXT  BAS (BAS_COMMAND  :IN,REAL  :IN )
 ;var for fabrication process
 DECL BOOL working = TRUE
 
-DECL CHAR action[1]
-action[1] = 0
+
+DECL INT action = -1
+DECL CHAR key[1]
 DECL FRAME current_position = {X 0, Y 0, Z 0, A 0, B 0, C 0}
+DECL FRAME temp_frame = {X 0, Y 0, Z 0, A 0, B 0, C 0}
 DECL FRAME relFrame
 DECL REAL step_size = 30
 

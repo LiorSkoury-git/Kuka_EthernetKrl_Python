@@ -1,16 +1,14 @@
+ITECH EthernetKrl comunication workshop
+=======================================
 
-========================ITECH EthernetKrl comunication workshop==============================
-
-=============================================================================================
 This repo was created for an ITECH workshop about the KUKA robot's communication using EthernetKrl.
 The EthernetKrl version used for this workshop is 3.2 for KSS 8.7
-=============================================================================================
 
 To run the code, first follow the steps:
 
 1 - create a virtual environment in your desired location
 
-2 - install python and the requirements libraries
+2 - install python and the requirements libraries with "pip install -r requirements.txt"
 
 3 - Make sure the EthernetKrl package is available in your robot
 
@@ -24,18 +22,12 @@ To run the code, first follow the steps:
 
 7 - run the virtual environment
 
-8 - run "main.py" 
+8 - run app.py 
 
-9 - if the connection was made, you should see the message on the Kuka controller changed to "waiting for flag[4]"
+9 - open rhino and load the Example.gh file
 
-10 - if the connection was not made, check your IP address and the robot's IP address
+10 - create the client using the createClient hops function
 
-11 - you can start controlling the robot by using the keys:
+11 - connect to the server using the Connect hops function
 
-W = +X
-X = -X
-A = -Y
-D = +Y
-U = +Z
-j = -Z
-
+12 - you can start controlling the robot by using the sendKey and sendFrame hops functions

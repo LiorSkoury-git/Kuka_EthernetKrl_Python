@@ -8,6 +8,7 @@ app = Flask(__name__)
 hops: hs.HopsFlask = hs.Hops(app)
 sticky = None
 
+
 #-- Point At component --#
 @hops.component(
     "/sum",
